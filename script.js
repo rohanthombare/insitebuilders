@@ -10,23 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Generate dynamic URL based on current domain
-        const cardUrl = window.location.origin + window.location.pathname.replace('index.html', '') + "card.html?person=rohan";
+        // Generate dynamic URL based on current domain and path structure (supports GitHub Pages subpaths)
+        const pathSegments = window.location.pathname.split('/');
+        pathSegments.pop(); // remove current file name (e.g. index.html or empty)
+        let basePath = window.location.origin + pathSegments.join('/');
+        if (!basePath.endsWith('/')) basePath += '/';
+        const cardUrl = basePath + "card.html?person=rohan";
         
-        const message = `Hello 👋
-
-Sharing the digital business card of Rohan Thombare from Insite Builders.
-
-🏗️ Construction
-📐 Design
-🏠 Interior
-🤝 Consultancy
-
-View my digital business card:
-${cardUrl}
-
-Thank you,
-Insite Builders`;
+        const message = `Hello 👋\n\nSharing the digital business card of Rohan Thombare from Insite Builders.\n\n🏗️ Construction\n📐 Design\n🏠 Interior\n🤝 Consultancy\n\nView my digital business card:\n${cardUrl}\n\nThank you,\nInsite Builders`;
 
         const encodedMessage = encodeURIComponent(message);
         
